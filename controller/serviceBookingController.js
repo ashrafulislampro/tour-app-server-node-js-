@@ -1,0 +1,22 @@
+const serviceBookingModel = require("../models/serviceBookingModel");
+
+exports.getAllBookedServices = async (req, res) => {
+  const response = await serviceBookingModel.getAllBookedServiceModel();
+  res.send(response);
+};
+
+exports.getUserBookedServices = async (req, res) => {
+  const userEmail = req.query.email;
+  const response = await serviceBookingModel.getUserBookedServiceModel(
+    userEmail
+  );
+  res.send(response);
+};
+
+exports.postServiceBookings = async (req, res) => {
+  const bookedService = req.body;
+  const response = await serviceBookingModel.postServiceBookingModel(
+    bookedService
+  );
+  res.send(response);
+};
