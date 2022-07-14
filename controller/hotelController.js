@@ -26,6 +26,7 @@ exports.updateHotel = async (req, res) => {
 
 exports.addHotel = async (req, res) => {
   const data = req.body;
+  console.log(data);
   const response = await hotelModel.postHotelModel(data);
   res.send(response);
 };

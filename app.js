@@ -8,12 +8,14 @@ const tourRouter = require("./routers/tour");
 const adminRouter = require("./routers/admin");
 const userRouter = require("./routers/user");
 const hotelRouter = require("./routers/hotel");
+const authenticationRouter = require("./routers/authentication");
 
 const app = express();
 
 app.use(cors({ origin: "*", credentials: true }));
 app.options("*", cors({ origin: "*", credentials: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 const run = async () => {
   try {
@@ -22,6 +24,7 @@ const run = async () => {
     app.use("/admin", adminRouter);
     app.use("/user", userRouter);
     app.use("/hotels", hotelRouter);
+    app.use("/authentication", authenticationRouter);
     app.use((req, res) => {
       res.send({ success: false, message: "no page found" });
     });

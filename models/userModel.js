@@ -27,8 +27,17 @@ exports.updateUserModel = async (email, data) => {
 };
 
 exports.createUserModel = async (data) => {
-  const result = await userCollection.insertOne(data);
-  return responseHelper.successResponse(result, "Successfully created a user");
+  const insertedUserEmail = data.email;
+
+  const exists = await userCollection.findOne({ email: insertedUserEmail });
+  if (!exists) {
+    const result = await userCollection.insertOne(data);
+    return responseHelper.successResponse(
+      result,
+      "Successfully created a user"
+    );
+  }
+  return responseHelper.failedResponse(exists, "User already exists");
 };
 
 exports.makeAdminModel = async (email) => {
