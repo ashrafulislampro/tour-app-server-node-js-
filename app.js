@@ -20,11 +20,11 @@ app.use(express.json());
 const run = async () => {
   try {
     await dbClient.connect();
-    app.use("/tour", tourRouter);
-    app.use("/admin", adminRouter);
-    app.use("/user", userRouter);
-    app.use("/hotels", hotelRouter);
-    app.use("/authentication", authenticationRouter);
+    app.use("/api/v1/tour", tourRouter);
+    app.use("/api/v1/admin", adminRouter);
+    app.use("/api/v1/user", userRouter);
+    app.use("/api/v1/hotels", hotelRouter);
+    app.use("/api/v1/authentication", authenticationRouter);
     app.use((req, res) => {
       res.send({ success: false, message: "no page found" });
     });

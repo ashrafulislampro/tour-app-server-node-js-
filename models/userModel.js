@@ -28,7 +28,6 @@ exports.updateUserModel = async (email, data) => {
 
 exports.createUserModel = async (data) => {
   const insertedUserEmail = data.email;
-
   const exists = await userCollection.findOne({ email: insertedUserEmail });
   if (!exists) {
     const result = await userCollection.insertOne(data);
