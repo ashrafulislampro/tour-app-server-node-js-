@@ -29,9 +29,20 @@ exports.makeAdmin = async (req, res) => {
   const response = await userModel.makeAdminModel(email);
   res.send(response);
 };
+exports.removeAdmin = async (req, res) => {
+  const email = req.query.email;
+  const response = await userModel.removeAdminModel(email);
+  res.send(response);
+};
 
 exports.deleteUser = async (req, res) => {
   const email = req.query.email;
   const response = await userModel.deleteUserModel(email);
+  res.send(response);
+};
+
+exports.getIsAdmin = async (req, res) => {
+  const email = req.body.email;
+  const response = await userModel.getAdmin(email);
   res.send(response);
 };

@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const dbClient = require("../db/dbClient");
 const responseHelper = require("../utilities/responseHelper");
 
@@ -54,7 +55,30 @@ exports.makeAdminModel = async (email) => {
   return responseHelper.successResponse(result, "Successfully made user admin");
 };
 
+exports.removeAdminModel = async (email) => {
+  const filter = { email };
+  const user = await userCollection.findOne(filter);
+  const { _id, ...rest } = user;
+  const updatedUser = { ...rest, role: "not-admin" };
+  const updatedDoc = {
+    $set: updatedUser,
+  };
+  const result = await userCollection.updateOne(filter, updatedDoc);
+  if (!result.acknowledged) {
+    return responseHelper.failedResponse(result, "Failed to remove admin");
+  }
+  return responseHelper.successResponse(result, "Successfully remove admin");
+};
+
 exports.deleteUserModel = async (email) => {
   const result = await userCollection.deleteOne({ email });
   return responseHelper.successResponse(result, "Successfully delete user");
+};
+
+exports.getAdmin = async (email) => {
+  const user = await userCollection.findOne({ email });
+  if (user && user.role === "admin") {
+    return { success: true, isAdmin: true };
+  }
+  return { success: false, isAdmin: false };
 };

@@ -15,6 +15,7 @@ router.delete("/delete-tour-plan", tourController.deleteTourPlan);
 router.get("/get-all-user", userController.getAllUsers);
 router.patch("/make-user-admin", userController.makeAdmin);
 router.delete("/delete-one-user", userController.deleteUser);
+router.patch("/remove-admin", userController.removeAdmin);
 
 // handle hotels
 router.post("/add-hotel", hotelController.addHotel);
