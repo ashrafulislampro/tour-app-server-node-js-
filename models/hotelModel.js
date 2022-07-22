@@ -16,7 +16,6 @@ exports.getOneHotelModel = async (id) => {
 };
 
 exports.postHotelModel = async (data) => {
-  console.log(data);
   const result = await hotelCollection.insertOne(data);
   if (!result.acknowledged) {
     return responseHelper.failedResponse(result, "Failed to post data");

@@ -21,4 +21,13 @@ router.post(
   serviceBookingController.postServiceBookings
 );
 
+router.delete(
+  "/delete-service-booking",
+  serviceBookingController.deleteServiceBookings
+);
+router.delete(
+  "/delete-hotel-booking",
+  hotelBookingController.deleteHotelBookings
+);
+
 module.exports = router;

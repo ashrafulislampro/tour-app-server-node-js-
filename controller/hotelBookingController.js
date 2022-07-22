@@ -13,6 +13,13 @@ exports.getUserBookedHotel = async (req, res) => {
 
 exports.postHotelBookings = async (req, res) => {
   const bookedHotel = req.body;
+
   const response = await hotelBookingModel.postHotelBookingModel(bookedHotel);
+  res.send(response);
+};
+
+exports.deleteHotelBookings = async (req, res) => {
+  const id = req.query.id;
+  const response = await hotelBookingModel.deleteHotelBookingModel(id);
   res.send(response);
 };

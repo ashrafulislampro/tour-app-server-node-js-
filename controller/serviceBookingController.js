@@ -20,3 +20,9 @@ exports.postServiceBookings = async (req, res) => {
   );
   res.send(response);
 };
+
+exports.deleteServiceBookings = async (req, res) => {
+  const id = req.query.id;
+  const response = await serviceBookingModel.deleteServiceBookingModel(id);
+  res.send(response);
+};
