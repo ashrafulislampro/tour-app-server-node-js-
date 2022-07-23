@@ -13,8 +13,8 @@ const authenticationRouter = require("./routers/authentication");
 const app = express();
 
 app.use(cors({ origin: "*", credentials: true }));
-app.options("*", cors({ origin: "*", credentials: true }));
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.options("*", cors({ origin: "*", credentials: true }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 const run = async () => {
