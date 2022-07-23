@@ -12,10 +12,18 @@ const authenticationRouter = require("./routers/authentication");
 
 const app = express();
 
-app.use(cors({ origin: "*", credentials: true }));
+// app.use(cors({ origin: "*", credentials: true }));
 // app.options("*", cors({ origin: "*", credentials: true }));
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-with, Content-Type, Accept"
+  );
+  next();
+});
 
 const run = async () => {
   try {
