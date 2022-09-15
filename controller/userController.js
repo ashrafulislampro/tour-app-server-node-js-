@@ -18,6 +18,13 @@ exports.updateUser = async (req, res) => {
   res.send(response);
 };
 
+exports.updateUserAvatar = async (req, res) => {
+  const email = req.query.email;
+  const img = req.body.image;
+  const response = await userModel.updateUserAvatarModel(email, img);
+  res.send(response);
+};
+
 exports.createUser = async (req, res) => {
   const user = req.body;
   const response = await userModel.createUserModel(user);
@@ -44,5 +51,11 @@ exports.deleteUser = async (req, res) => {
 exports.getIsAdmin = async (req, res) => {
   const email = req.body.email;
   const response = await userModel.getAdmin(email);
+  res.send(response);
+};
+
+exports.createPaymentIntend = async (req, res) => {
+  const price = req.body.price;
+  const response = await userModel.createPaymentIntendModel(price);
   res.send(response);
 };

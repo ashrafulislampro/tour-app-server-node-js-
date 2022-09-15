@@ -5,7 +5,7 @@ const responseHelper = require("../utilities/responseHelper");
 const hotelCollection = dbClient.db("travel-thirsty").collection("hotels");
 
 exports.getAllHotelModel = async () => {
-  const result = await hotelCollection.find({}).toArray();
+  const result = (await hotelCollection.find({}).toArray()).reverse();
   return responseHelper.successResponse(result, "Successfully get all hotels");
 };
 

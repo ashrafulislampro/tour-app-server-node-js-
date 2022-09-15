@@ -13,6 +13,12 @@ exports.getUserBookedServices = async (req, res) => {
   res.send(response);
 };
 
+exports.getSingleBookedService = async (req, res) => {
+  const id = req.query.id;
+  const response = await serviceBookingModel.getSingleBookedServiceModel(id);
+  res.send(response);
+};
+
 exports.postServiceBookings = async (req, res) => {
   const bookedService = req.body;
   const response = await serviceBookingModel.postServiceBookingModel(
@@ -24,5 +30,15 @@ exports.postServiceBookings = async (req, res) => {
 exports.deleteServiceBookings = async (req, res) => {
   const id = req.query.id;
   const response = await serviceBookingModel.deleteServiceBookingModel(id);
+  res.send(response);
+};
+
+exports.updateBookedTourPaymentInfo = async (req, res) => {
+  const id = req.query.id;
+  const transactionID = req.body.transactionID;
+  const response = await serviceBookingModel.updateBookedTourPaymentModel(
+    id,
+    transactionID
+  );
   res.send(response);
 };

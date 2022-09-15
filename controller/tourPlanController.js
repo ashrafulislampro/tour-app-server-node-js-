@@ -7,6 +7,7 @@ exports.getAllTourPlan = async (req, res) => {
 
 exports.getOneTourPlan = async (req, res) => {
   const id = req.query.id;
+
   const response = await tourPlanModel.getSingleTourPlanModel(id);
   res.send(response);
 };

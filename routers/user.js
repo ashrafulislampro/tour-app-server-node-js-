@@ -8,12 +8,21 @@ const router = express.Router();
 router.get("/single-user", userController.getSingleUser);
 router.post("/add-user", userController.createUser);
 router.patch("/update-single-user", userController.updateUser);
+router.patch("/update-user-avatar", userController.updateUserAvatar);
 
 // bookings
 router.get("/get-user-bookedHotel", hotelBookingController.getUserBookedHotel);
 router.get(
   "/get-user-bookedService",
   serviceBookingController.getUserBookedServices
+);
+router.get(
+  "/get-singlehotel-booking",
+  hotelBookingController.getSingleBookHotel
+);
+router.get(
+  "/get-singletour-booking",
+  serviceBookingController.getSingleBookedService
 );
 router.post("/post-hotel-booking", hotelBookingController.postHotelBookings);
 router.post(
@@ -28,6 +37,16 @@ router.delete(
 router.delete(
   "/delete-hotel-booking",
   hotelBookingController.deleteHotelBookings
+);
+
+router.post("/create-payment-intend", userController.createPaymentIntend);
+router.patch(
+  "/update-hotelBookingPayment-info",
+  hotelBookingController.updateBookedHotelPaymentInfo
+);
+router.patch(
+  "/update-tourBookingPayment-info",
+  serviceBookingController.updateBookedTourPaymentInfo
 );
 
 module.exports = router;

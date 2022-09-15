@@ -7,7 +7,7 @@ const serviceBookingsCollection = dbClient
   .collection("service-bookings");
 
 exports.getAllBookedServiceModel = async () => {
-  const result = await serviceBookingsCollection.find({}).toArray();
+  const result = (await serviceBookingsCollection.find({}).toArray()).reverse();
   return responseHelper.successResponse(
     result,
     "Successfully get all bookings"
@@ -15,12 +15,20 @@ exports.getAllBookedServiceModel = async () => {
 };
 
 exports.getUserBookedServiceModel = async (email) => {
-  const result = await serviceBookingsCollection
-    .find({ user_email: email })
-    .toArray();
+  const result = (
+    await serviceBookingsCollection.find({ email }).toArray()
+  ).reverse();
   return responseHelper.successResponse(
     result,
     "Successfully get all bookings"
+  );
+};
+
+exports.getSingleBookedServiceModel = async (id) => {
+  const result = await serviceBookingsCollection.findOne({ _id: ObjectId(id) });
+  return responseHelper.successResponse(
+    result,
+    "Successfully get Single bookings"
   );
 };
 
@@ -34,7 +42,6 @@ exports.postServiceBookingModel = async (data) => {
 };
 
 exports.deleteServiceBookingModel = async (id) => {
-  console.log(id);
   const filter = { _id: id };
 
   const result = await serviceBookingsCollection.deleteOne(filter);
@@ -42,4 +49,17 @@ exports.deleteServiceBookingModel = async (id) => {
     return responseHelper.successResponse(result, "Successfully Delete data");
   }
   return responseHelper.failedResponse(result, "Failed to delete data");
+};
+
+exports.updateBookedTourPaymentModel = async (id, transactionID) => {
+  const filter = { _id: ObjectId(id) };
+
+  const updatedData = {
+    $set: {
+      transactionID,
+      paid: true,
+    },
+  };
+  const result = await serviceBookingsCollection.updateOne(filter, updatedData);
+  return responseHelper.successResponse(result, "Successfully updated");
 };

@@ -15,7 +15,7 @@ exports.postTourPlanModel = async (data) => {
 };
 
 exports.getTourPlanModel = async () => {
-  const result = await tourPlanCollection.find({}).toArray();
+  const result = (await tourPlanCollection.find({}).toArray()).reverse();
   return responseHelper.successResponse(result, "Get data successfully");
 };
 
