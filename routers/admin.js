@@ -3,6 +3,7 @@ const tourController = require("../controller/tourPlanController");
 const userController = require("../controller/userController");
 const hotelController = require("../controller/hotelController");
 const hotelBookingController = require("../controller/hotelBookingController");
+const serviceBookingController = require("../controller/serviceBookingController");
 
 const router = express.Router();
 
@@ -24,5 +25,9 @@ router.delete("/delete-hotel", hotelController.deleteHotel);
 
 // handle bookings
 router.get("/get-all-bookedHotel", hotelBookingController.getAllBookedHotel);
+router.get(
+  "/get-all-bookedService",
+  serviceBookingController.getAllBookedServices
+);
 
 module.exports = router;
