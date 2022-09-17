@@ -14,8 +14,12 @@ exports.getOneUserModel = async (email) => {
 };
 
 exports.getAllUserModel = async () => {
-  const result = (await userCollection.find({}).toArray()).reverse;
-  return responseHelper.successResponse(result, "Successfully get all users");
+  const result = (await userCollection.find({}).toArray()).reverse();
+  return responseHelper.successResponse(
+    result,
+    "Successfully get all users",
+    result
+  );
 };
 
 exports.updateUserModel = async (email, data) => {
