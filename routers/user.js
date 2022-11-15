@@ -49,4 +49,10 @@ router.patch(
   serviceBookingController.updateBookedTourPaymentInfo
 );
 
+router.post("/add-review", userController.createReview);
+router.get("get-reviews", userController.getReviews);
+
 module.exports = router;
+
+// /api/v1/user/add-review
+// /api/v1/user/get-reviews

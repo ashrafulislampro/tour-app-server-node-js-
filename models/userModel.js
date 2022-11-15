@@ -4,6 +4,7 @@ const responseHelper = require("../utilities/responseHelper");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const userCollection = dbClient.db("travel-thirsty").collection("user");
+const reviewCollection = dbClient.db("travel-thirsty".collection("reviews"));
 
 exports.getOneUserModel = async (email) => {
   const filter = { email };
@@ -123,4 +124,15 @@ exports.createPaymentIntendModel = async (price) => {
     currency: "usd",
   });
   return { success: true, clientSecret: paymentIntent.client_secret };
+};
+
+exports.addNewReview = async (review) => {
+  if (!review) return;
+  const result = await reviewCollection.insertOne(review);
+  return { success: true, result };
+};
+
+exports.getAllReviews = async () => {
+  const reviews = await reviewCollection.find({}.toArray()).reverse();
+  return { success: true, reviews };
 };

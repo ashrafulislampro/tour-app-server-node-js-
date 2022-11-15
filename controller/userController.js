@@ -59,3 +59,14 @@ exports.createPaymentIntend = async (req, res) => {
   const response = await userModel.createPaymentIntendModel(price);
   res.send(response);
 };
+
+exports.createReview = async (req, res) => {
+  const review = req.body;
+  const response = await userModel.addNewReview(review);
+  res.send(response);
+};
+
+exports.getReviews = async (req, res) => {
+  const response = await userModel.getAllReviews();
+  res.send(response);
+};
