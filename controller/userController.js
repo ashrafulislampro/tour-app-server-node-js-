@@ -43,8 +43,8 @@ exports.removeAdmin = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-  const email = req.query.email;
-  const response = await userModel.deleteUserModel(email);
+  const id = req.query.id;
+  const response = await userModel.deleteUserModel(id);
   res.send(response);
 };
 
@@ -61,12 +61,13 @@ exports.createPaymentIntend = async (req, res) => {
 };
 
 exports.createReview = async (req, res) => {
-  const review = req.body;
-  const response = await userModel.addNewReview(review);
+  const { data: review, postId } = req.body;
+  const response = await userModel.addNewReview({ review, postId });
   res.send(response);
 };
 
 exports.getReviews = async (req, res) => {
-  const response = await userModel.getAllReviews();
+  const postId = req.query.postId;
+  const response = await userModel.getAllReviews(postId);
   res.send(response);
 };

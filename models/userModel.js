@@ -4,7 +4,7 @@ const responseHelper = require("../utilities/responseHelper");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const userCollection = dbClient.db("travel-thirsty").collection("user");
-const reviewCollection = dbClient.db("travel-thirsty".collection("reviews"));
+const reviewCollection = dbClient.db("travel-thirsty").collection("reviews");
 
 exports.getOneUserModel = async (email) => {
   const filter = { email };
@@ -100,8 +100,8 @@ exports.removeAdminModel = async (email) => {
   return responseHelper.successResponse(result, "Successfully remove admin");
 };
 
-exports.deleteUserModel = async (email) => {
-  const result = await userCollection.deleteOne({ email });
+exports.deleteUserModel = async (id) => {
+  const result = await userCollection.deleteOne({ _id: ObjectId(id) });
   return responseHelper.successResponse(result, "Successfully delete user");
 };
 
@@ -126,13 +126,14 @@ exports.createPaymentIntendModel = async (price) => {
   return { success: true, clientSecret: paymentIntent.client_secret };
 };
 
-exports.addNewReview = async (review) => {
+exports.addNewReview = async (data) => {
+  const { review, postId } = data;
   if (!review) return;
-  const result = await reviewCollection.insertOne(review);
+  const result = await reviewCollection.insertOne({ ...review, postId });
   return { success: true, result };
 };
 
-exports.getAllReviews = async () => {
-  const reviews = await reviewCollection.find({}.toArray()).reverse();
+exports.getAllReviews = async (postId) => {
+  const reviews = await reviewCollection.find({ postId }).toArray();
   return { success: true, reviews };
 };

@@ -50,7 +50,7 @@ router.patch(
 );
 
 router.post("/add-review", userController.createReview);
-router.get("get-reviews", userController.getReviews);
+router.get("/get-reviews", userController.getReviews);
 
 module.exports = router;
 
